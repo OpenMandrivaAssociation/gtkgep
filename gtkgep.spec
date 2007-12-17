@@ -13,7 +13,6 @@ Source:		%{name}-%{version}.tar.bz2
 URL:		http://gtkgep.prv.pl
 License:	GPL
 Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	gtk+1.2-devel
 
 %description
