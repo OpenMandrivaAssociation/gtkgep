@@ -50,9 +50,15 @@ rm -f $RPM_BUILD_ROOT/%_libdir/*.a
 rm -f $RPM_BUILD_ROOT/%_libdir/*/*.la
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): command="%{name}" icon="sound_section.png" needs="x11" title="GTK Guitar Effects" longtitle="Realtime effects" section="Multimedia/Sound"
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+[Desktop Entry]
+Type=Application
+Exec=%{name}
+Icon=sound_section
+Name=GTK Guitar Effects
+Comment=Realtime effects
+Categories=Audio;
 EOF
 
 %clean
@@ -72,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc README COPYING
 %{_bindir}/%name
-%{_menudir}/%name
+%{_datadir}/applications/mandriva-%name.desktop
 %{_libdir}/%name-%version
 
 %files -n %libname
