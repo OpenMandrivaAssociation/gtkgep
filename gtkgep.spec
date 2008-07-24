@@ -1,6 +1,6 @@
 %define name	gtkgep
 %define version	0.2.3
-%define release %mkrel 3
+%define release %mkrel 5
 
 %define major 0
 %define libname %mklibname %name %major
