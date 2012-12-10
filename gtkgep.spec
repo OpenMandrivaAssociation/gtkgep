@@ -1,6 +1,6 @@
 %define name	gtkgep
 %define version	0.2.3
-%define release %mkrel 7
+%define release 7
 
 %define major 0
 %define libname %mklibname %name %major
@@ -9,11 +9,10 @@ Name: 	 %{name}
 Summary: Real-time guitar effects
 Version: %{version}
 Release: %{release}
-Source:		%{name}-%{version}.tar.bz2
+Source0:		%{name}-%{version}.tar.bz2
 URL:		http://gtkgep.prv.pl
 License:	GPL
 Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	gtk+1.2-devel
 
 %description
@@ -45,10 +44,8 @@ perl -p -i -e 's;/usr/local/lib;%_libdir;g' gtkgep_main.c
 %make
 										
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 rm -f $RPM_BUILD_ROOT/%_libdir/*.a
-rm -f $RPM_BUILD_ROOT/%_libdir/*/*.la
 
 #menu
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
@@ -62,39 +59,53 @@ Comment=Realtime effects
 Categories=Audio;
 EOF
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-		
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
 %files
 %defattr(-,root,root)
 %doc README COPYING
 %{_bindir}/%name
 %{_datadir}/applications/mandriva-%name.desktop
-%{_libdir}/%name-%version
 
 %files -n %libname
 %defattr(-,root,root)
 %dir %{_libdir}/%name-%version
 %dir %{_libdir}/%name-%version/plugins
 %{_libdir}/%name-%version/plugins/*.so
-%{_libdir}/%name-%version/plugins/*.la
-%{_libdir}/lib*.la
 
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.2.3-7mdv2011.0
++ Revision: 619288
+- the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 0.2.3-6mdv2010.0
++ Revision: 429337
+- rebuild
+
+* Thu Jul 24 2008 Thierry Vignaud <tv@mandriva.org> 0.2.3-5mdv2009.0
++ Revision: 246688
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Tue Dec 18 2007 Thierry Vignaud <tv@mandriva.org> 0.2.3-3mdv2008.1
++ Revision: 131730
+- auto-convert XDG menu entry
+- kill re-definition of %%buildroot on Pixel's request
+- import gtkgep
+
+
+* Fri Apr 08 2005 Olivier Thauvin <nanardon@mandrake.org> 0.2.3-3mdk
+- %%mklibname
+- amd64 fix
+
+* Tue Jul 15 2003 Austin Acton <aacton@yorku.ca> 0.2.3-2mdk
+- DIRM
+
+* Mon Feb 17 2003 Austin Acton <aacton@yorku.ca> 0.2.3-1mdk
+- initial package
