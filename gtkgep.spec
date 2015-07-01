@@ -10,8 +10,9 @@ Source0:		%{name}-%{version}.tar.bz2
 URL:		http://gtkgep.prv.pl
 License:	GPL
 Group:		Sound
-BuildRequires:	gtk+1.2-devel
+BuildRequires:	pkgconfig(gtk+)
 Obsoletes:	%{_lib}gtkgep0
+
 %description
 GtkGEP turns your computer into a realtime effects processor. You can plug
 your guitar into the computer and play with cool distortion effects, for
@@ -24,10 +25,7 @@ The sound quality is very good.
 %setup -q
 
 %build
-libtoolize --force
-aclocal
-automake
-autoconf
+autoreconf -fiv
 %configure
 perl -p -i -e 's;/usr/local/lib;%_libdir;g' gtkgep_main.c
 %make
