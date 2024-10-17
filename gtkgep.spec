@@ -7,7 +7,7 @@ Summary: Real-time guitar effects
 Version: %{version}
 Release: %{release}
 Source0:		%{name}-%{version}.tar.bz2
-URL:		http://gtkgep.prv.pl
+URL:		https://gtkgep.prv.pl
 License:	GPL
 Group:		Sound
 BuildRequires:	pkgconfig(gtk+)
