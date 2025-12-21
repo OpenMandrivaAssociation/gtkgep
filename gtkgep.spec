@@ -10,6 +10,11 @@ Source0:		%{name}-%{version}.tar.bz2
 URL:		https://gtkgep.prv.pl
 License:	GPL
 Group:		Sound
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(gtk+)
 Obsoletes:	%{_lib}gtkgep0
 
